@@ -78,6 +78,17 @@ RST_LINK_EXAMPLE_MARKDOWN = (
     "[this link](https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases)."
 )
 
+RST_LINK_MULTILINE_EXAMPLE = """
+See
+`strftime documentation
+<https://docs.python.org/3/library/datetime.html
+#strftime-and-strptime-behavior>`_ for more.
+"""
+RST_LINK_MULTILINE_MARKDOWN = """
+See
+[strftime documentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) for more.
+"""
+
 RST_REF_EXAMPLE = """See :ref:`here <timeseries.offset_aliases>` for a list of frequency aliases."""
 RST_REF_MARKDOWN = """See here: `timeseries.offset_aliases` for a list of frequency aliases."""
 
@@ -686,6 +697,10 @@ RST_CASES = {
         'rst': RST_LINK_EXAMPLE,
         'md': RST_LINK_EXAMPLE_MARKDOWN
     },
+    'converts multi-line links': {
+        'rst': RST_LINK_MULTILINE_EXAMPLE,
+        'md': RST_LINK_MULTILINE_MARKDOWN
+    },
     'changes highlight': {
         'rst': RST_HIGHLIGHTED_BLOCK,
         'md': RST_HIGHLIGHTED_BLOCK_MARKDOWN
@@ -764,6 +779,10 @@ RST_CASES = {
         'rst': '__init__',
         'md': r'\_\_init\_\_'
     },
+    'does not escape dunders in code': {
+        'rst': '`__init__`',
+        'md': '`__init__`'
+    },
     'converts bibliographic references': {
         'rst': REFERENCES,
         'md': REFERENCES_MARKDOWN
@@ -837,6 +856,7 @@ def test_looks_like_rst_recognises_rst():
     assert looks_like_rst('the following code::\n\n\tcode')
     assert looks_like_rst('See Also\n--------\n')
     assert looks_like_rst('.. versionadded:: 0.1')
+    assert looks_like_rst('Description.\n\n:param spam: eggs.\n')
 
 
 def test_looks_like_rst_ignores_plain_text():
